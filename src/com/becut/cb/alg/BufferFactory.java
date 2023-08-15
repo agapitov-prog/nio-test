@@ -10,12 +10,22 @@ public class BufferFactory {
             return ByteBuffer.allocate(bufferSize);
         }
 
+        @Override
+        public boolean isHeap() {
+            return true;
+        }
+
     };
 
     public static final BufferCreator DIRECT_CREATOR = new BufferCreator() {
         @Override
         public ByteBuffer createBuffer(int bufferSize) {
             return ByteBuffer.allocateDirect(bufferSize);
+        }
+
+        @Override
+        public boolean isHeap() {
+            return false;
         }
 
     };

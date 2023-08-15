@@ -40,9 +40,12 @@ public class SimpleWriter implements Task {
                     throw new IOException("Closed connection");
                 }
             } else {
-                bb = creator.createBuffer(data.length);
-                bb.put(data);
-                bb.position(0);
+                if (creator.isHeap()) {
+                    bb = ByteBuffer.wrap(data);
+                } else {
+                    bb = creator.createBuffer(data.length);
+                    bb.position(0).limit(bb.capacity());
+                }
             }
         }
     }
